@@ -15,13 +15,15 @@ class Server implements Runnable{
     protected ServerSocket serverSocket = null;
     protected int queueSize = 10 ;
     protected int nThread = 5;
+    protected int WaitTime = 0;
 
 
-    public Server(int port , int queueSize , int nThread ){
+    public Server(int port , int queueSize , int nThread , int WaitTime ){
 
         this.serverPort = port;
         this.queueSize = queueSize;
         this.nThread = nThread;
+        this.WaitTime = WaitTime;
     }
 
     public void run(){
@@ -39,7 +41,7 @@ class Server implements Runnable{
             }
 
             try {
-                threadPool.submitTask(new Request(clientSocket));
+                threadPool.submitTask(new Request(clientSocket , WaitTime));
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

@@ -7,13 +7,23 @@ import java.net.SocketTimeoutException;
 public class Request implements Runnable {
 
     protected Socket clientSocket = null;
+    protected int WaitTime = 0;
 
-    public Request(Socket clientSocket) {
+    public Request(Socket clientSocket , int WaitTime) {
         this.clientSocket = clientSocket;
+        this.WaitTime = WaitTime;
     }
+
 
     public void run() {
         try {
+
+
+            try {
+                Thread.sleep(WaitTime * 1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
 
             System.out.println("Request started to execute");
@@ -23,7 +33,9 @@ public class Request implements Runnable {
             BufferedReader br = new BufferedReader(isr);
             String text = br.readLine();
 
-            System.out.println("Message Receved from client" + text);
+            System.out.println("##############################Request#################################");
+            System.out.println("Message Receved from client   :" + text);
+            System.out.println("######################################################################");
             String message = "Thread ID" + Thread.currentThread().getId() + "Handled Clent requst : " + text + "successfully";
 
             OutputStream os = clientSocket.getOutputStream();
