@@ -20,7 +20,7 @@ Multi threaded client program
 
 <h2>Instruction to run program</h2>
 
-Client -sh startClient.sh {numberOfClients}
+Client -sh startClient.sh {PORT} {numberOfClients}
 
 Ex :sh startClient.sh 20
 
